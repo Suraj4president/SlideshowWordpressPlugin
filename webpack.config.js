@@ -9,14 +9,15 @@ const config = {
   mode: (nodeEnv === 'production' ? 'production' : 'development'),
   entry: {
     ba_slideshow: './assets/apps/ba_slideshow/index.js',
+    ba_reports: './assets/apps/ba_reports/index.js',
   },
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'assets/apps/ba_slideshow/dist'),
+    path: path.resolve(__dirname, 'assets/apps/dist'),
   },
   devServer: {
     disableHostCheck: true,
-    contentBase: path.resolve(__dirname, 'assets/apps/ba_slideshow/dist'),
+    contentBase: path.resolve(__dirname, 'assets/apps/dist'),
   },
   resolve: {
     extensions: [
@@ -42,12 +43,23 @@ const config = {
       inject: false,
       showErrors: true,
       chunks: ['ba_slideshow'],
-      filename: 'main.twig',
+      filename: 'ba_slideshow.twig',
       template: 'assets/apps/ba_slideshow/main.tpl',
       devServer: 'http://localhost:8080',
       alwaysWriteToDisk: true,
     }),
-    new HtmlWebpackHarddiskPlugin()
+    new HtmlWebpackPlugin({
+      inject: false,
+      showErrors: true,
+      chunks: ['ba_reports'],
+      filename: 'ba_reports.twig',
+      template: 'assets/apps/ba_reports/main.tpl',
+      devServer: 'http://localhost:8080',
+      alwaysWriteToDisk: true,
+    }),
+    new HtmlWebpackHarddiskPlugin({
+      outputPath: path.resolve(__dirname, 'assets/apps/dist')
+    })
   ]
 }
 

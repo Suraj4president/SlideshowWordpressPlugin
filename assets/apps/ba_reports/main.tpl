@@ -1,4 +1,4 @@
-<div id="ba_slideshow_root"></div>
+<div id="ba_reports_root"></div>
 {% if my_env == 'development' %}
   <script src="<%= htmlWebpackPlugin.options.devServer %>/<%= htmlWebpackPlugin.files.js[0] %>"></script>
 {% else %}

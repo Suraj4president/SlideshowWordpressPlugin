@@ -10,6 +10,7 @@ class Actions
       'baseUrl' => plugins_url('assets/apps/ba_slideshow', BA_SLIDESHOW_PLUGIN_FILE),
       'ajaxUrl' => admin_url('admin-ajax.php'),
       'nonce' => wp_create_nonce('my_nonce'),
+      'savedAnswers' => get_option('testrun_slideshow_answers'),
     ];
     $script = "";
     $script .= "<script>" . PHP_EOL;
