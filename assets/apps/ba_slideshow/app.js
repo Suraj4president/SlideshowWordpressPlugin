@@ -12,6 +12,8 @@ const App = () => {
   const [currentSlide, setSlide] = React.useState(SLIDE_START)
   const [currentScore, setScore] = React.useState(0)
   const [sessionAnswers, setSessionAnswers] = React.useState({})
+  const [username, setUsername] = React.useState('')
+  const [formSubmitted, setFormSubmitted] = React.useState(false)
 
   const preloadImages = () => {
     const imageList1 = [...Array(7).keys()].map((num) => `${BASE_URL}05/quiz${num+1}.png`)
@@ -44,7 +46,10 @@ const App = () => {
       type: 'POST',
       data: {
         my_api_route: 'session_answers_update',
-        my_session_answers: sessionAnswers,
+        my_session_answers: {
+          username,
+          ...sessionAnswers,
+        },
         my_nonce: DATA.nonce,
       },
       success: function( response ) {
@@ -70,8 +75,15 @@ const App = () => {
 
   const startQ = () => {
     if (currentSlide === 1) {
-      setSlide(2)
+      setFormSubmitted(true)
+      if (validateUsername(username)) {
+        setSlide(2)
+      }
     }
+  }
+
+  const validateUsername = (username) => {
+    return !!username
   }
 
   const next = (slideNum, answer, correctAnswer) => {
@@ -96,9 +108,53 @@ const App = () => {
     return answerSet[correctAnswerNum]
   }
 
+	const StartScreen_ = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+
+    > div {
+      position: absolute;
+      top: 20%;
+      left: 10%;
+    }
+
+    > div > div {
+      font-size: 18px;
+      margin-bottom: 5px;
+      font-weight: 800;
+      color: #000;
+    }
+
+    & input {
+      display: block;
+      padding: 8px;
+      width: 200px;
+      margin-bottom: 5px;
+    }
+	`
+
+	const handleInputChange = (e) => {
+    setUsername(e.target.value)
+  }
+
+  const StartScreen = () => {
+    return (
+      <StartScreen_>
+        <div>
+          <div>Please Enter Your Name</div>
+          <input value={username} onChange={handleInputChange} />
+          {formSubmitted === true && !validateUsername(username) && <div style={{color: 'red'}}>* Name is required</div>}
+          <button className="button" onClick={startQ}>Click to take the quiz!</button>
+        </div>
+      </StartScreen_>
+    )
+  }
+
   const renderSlideButtons = (slideNum) => {
 	  if (slideNum === 1) {
-		  return (<><div className={`sBtn startBtn`} onClick={() => startQ}><p>Click to take the quiz!</p></div></>)
+		  return null
 	  } else if (slideNum > 6) {
       return null
       } else {
@@ -136,13 +192,14 @@ const App = () => {
 
   const FinalScore = () => (
     <div>
-	  <img class="resultImage" src= {`${BASE_URL}06/score${currentScore}.png`}/>
+	  <img className="resultImage" src= {`${BASE_URL}06/score${currentScore}.png`}/>
     </div>
   )
 
   const Slide = ({ className, slideNum }) => {
     return (
-      <div className={className} onClick={startQ}>
+      <div className={className}>
+        { currentSlide === 1 && <StartScreen /> }
         <img src={`${BASE_URL}05/quiz${slideNum}.png`} />
         {renderSlideButtons(slideNum)}
         { slideNum === SLIDE_END && <FinalScore />}
@@ -483,7 +540,6 @@ const App = () => {
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
-
 	`
 
   const renderSlide = (currentSlide) => {
