@@ -1,0 +1,17 @@
+{% import "macros.twig" as h %}
+
+<div id="my-plugin-container">
+  <h1>BA Slideshow Plugin</h1>
+  <br/><br/>
+
+  <div>
+    <nav class="nav-tab-wrapper">
+      <a href="?page={{ page_name }}&tab=1" class="{{ h.tab_classes(1, current_tab) }}">Info</a>
+      <a href="?page={{ page_name }}&tab=2" class="{{ h.tab_classes(2, current_tab) }}">Preview</a>
+    </nav>
+
+    <div class="tab-content">
+      {{ include(current_tab_partial) }}
+    </div>
+  </div>
+</div>

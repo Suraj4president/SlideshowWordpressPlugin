@@ -1,0 +1,25 @@
+#my-plugin-container {
+    margin: 0 auto;
+    text-align: left;
+    max-width: 65rem;
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.my-tab-container {
+    padding: 40px 20px;
+}
+
+.my-info-box {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    margin-bottom: 20px;
+}
+
+.my-line {
+  height: 1px;
+  border-bottom: 1px solid #ccc;
+}
