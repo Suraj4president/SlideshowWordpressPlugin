@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production webpack --production",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "clean": "rm -f assets/apps/dist/*"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
