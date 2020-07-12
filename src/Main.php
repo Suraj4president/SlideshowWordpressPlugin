@@ -2,20 +2,11 @@
 
 namespace My;
 
-use Dotenv\Dotenv;
-
 class Main
 {
   public function __construct()
   {
-    $this->initDotenv();
     $this->initWpStuff();
-  }
-
-  private function initDotEnv()
-  {
-    $dotenv = Dotenv::create(__DIR__.'/../');
-    $dotenv->load();
   }
 
   private function initWpStuff()

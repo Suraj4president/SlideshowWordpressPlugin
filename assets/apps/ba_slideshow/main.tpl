@@ -1,6 +1,6 @@
 <div id="ba_slideshow_root"></div>
-{% if my_env == 'development' %}
+<% if (process.env.NODE_ENV === 'development') { %>
   <script src="<%= htmlWebpackPlugin.options.devServer %>/<%= htmlWebpackPlugin.files.js[0] %>"></script>
-{% else %}
+<% } else { %>
   <script src="{{ base_url }}/<%= htmlWebpackPlugin.files.js[0] %>"></script>
-{% endif %}
+<% } %>
