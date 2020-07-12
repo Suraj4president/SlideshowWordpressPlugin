@@ -29,7 +29,7 @@ const Table = ({ list }) => {
         <tbody>
         {list.map((item, index) => (
           <tr key={getId(index)}>
-            <td><pre>{JSON.stringify(item, ['username', '2', '3', '4', '5'], 4)}</pre></td>
+            <td><pre>{JSON.stringify(item, ['username', '2', '3', '4', '5', '6'], 4)}</pre></td>
           </tr>
         ))}
         {list.length === 0 && <tr><td>No answers found</td></tr>}
